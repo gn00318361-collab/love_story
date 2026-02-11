@@ -1,190 +1,289 @@
-
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>給最親愛的老婆 ❤️</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@700&family=Noto+Sans+TC:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@700&family=Noto+Sans+TC:wght@400;500&family=Zhi+Mang+Xing&display=swap" rel="stylesheet">
 <style>
+    :root {
+        --primary-pink: #d81b60;
+        --soft-pink: #f8bbd0;
+        --bg-gradient: linear-gradient(135deg, #fff5f5 0%, #fff0f5 100%);
+    }
+
     body {
         margin: 0; padding: 0;
-        background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+        background: var(--bg-gradient);
         font-family: 'Noto Sans TC', sans-serif;
         color: #444;
         overflow-x: hidden;
     }
     
-    /* Falling Hearts */
     .heart {
-        position: fixed; top: -1vh; font-size: 1.5rem; color: #ff4081; opacity: 0.8; z-index: 999;
+        position: fixed; top: -1vh; font-size: 1.5rem; color: #ff4081; opacity: 0.6; z-index: 999;
         animation: fall linear infinite;
     }
-    @keyframes fall { to { transform: translateY(105vh); } }
+    @keyframes fall { to { transform: translateY(105vh) rotate(360deg); } }
 
     header {
-        text-align: center; padding: 60px 20px;
-        background: linear-gradient(to bottom, #fff0f5, #fff);
+        text-align: center; padding: 80px 20px;
+        background: white;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
     }
-    h1 { font-family: 'Noto Serif TC', serif; font-size: 3rem; color: #d81b60; margin-bottom: 10px; }
-    p.subtitle { font-size: 1.2rem; color: #888; margin-bottom: 30px; }
+    h1 { font-family: 'Noto Serif TC', serif; font-size: clamp(2rem, 8vw, 3.5rem); color: var(--primary-pink); margin-bottom: 10px; }
+    p.subtitle { font-size: 1.2rem; color: #888; letter-spacing: 2px; }
 
-    /* Masonry Gallery */
-    .gallery {
-        column-count: 3;
-        column-gap: 15px;
+    .timeline {
+        max-width: 800px;
+        margin: 40px auto;
         padding: 20px;
-        max-width: 1200px;
-        margin: 0 auto;
-        min-height: 500px;
-    }
-    .gallery img {
-        width: 100%;
-        border-radius: 10px;
-        margin-bottom: 15px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        transition: transform 0.3s;
-        opacity: 0; animation: fadeIn 0.5s forwards;
-    }
-    .gallery img:hover { transform: scale(1.02); z-index: 10; }
-    @keyframes fadeIn { to { opacity: 1; } }
-
-    /* Message Section */
-    .message-box {
-        text-align: center; padding: 50px 20px; background: white;
-        margin: 40px auto; max-width: 600px; border-radius: 20px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
         position: relative;
     }
-    .message-box::before { content: '❝'; font-size: 5rem; color: #f8bbd0; position: absolute; top: -20px; left: 20px; }
+    .timeline::before {
+        content: '';
+        position: absolute;
+        left: 50%;
+        width: 2px;
+        height: 100%;
+        background: var(--soft-pink);
+        transform: translateX(-50%);
+    }
+    .timeline-item {
+        margin-bottom: 30px;
+        position: relative;
+        width: 50%;
+        padding: 10px 30px;
+    }
+    .timeline-item:nth-child(odd) { left: 0; text-align: right; }
+    .timeline-item:nth-child(even) { left: 50%; text-align: left; }
+    .timeline-dot {
+        position: absolute;
+        top: 15px;
+        width: 15px;
+        height: 15px;
+        background: var(--primary-pink);
+        border-radius: 50%;
+        z-index: 10;
+    }
+    .timeline-item:nth-child(odd) .timeline-dot { right: -7.5px; }
+    .timeline-item:nth-child(even) .timeline-dot { left: -7.5px; }
+    .timeline-date { font-weight: bold; color: var(--primary-pink); }
+
+    .gallery {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 30px;
+        padding: 40px;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    .polaroid {
+        background: white;
+        padding: 15px 15px 40px 15px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        border-radius: 2px;
+        transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        cursor: pointer;
+    }
+    .polaroid img {
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+        border: 1px solid #f0f0f0;
+    }
+    .polaroid:hover {
+        transform: scale(1.1) rotate(0deg) !important;
+        z-index: 100;
+    }
+    .polaroid::after {
+        content: 'Our Memories';
+        font-family: 'Zhi Mang Xing', cursive;
+        display: block;
+        text-align: center;
+        margin-top: 15px;
+        font-size: 1.2rem;
+        color: #777;
+    }
+
+    .message-box {
+        text-align: center; padding: 60px 40px; background: white;
+        margin: 60px auto; max-width: 700px; border-radius: 30px;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.05);
+        position: relative;
+        min-height: 350px;
+    }
+    #typewriter {
+        font-size: 1.2rem; line-height: 2.2; text-align: left;
+        white-space: pre-wrap;
+        display: inline-block;
+        font-family: 'Noto Serif TC', serif;
+    }
 
     .btn {
-        background: #d81b60; color: white; border: none; padding: 15px 40px;
+        background: var(--primary-pink); color: white; border: none; padding: 18px 50px;
         font-size: 1.2rem; border-radius: 50px; cursor: pointer;
-        box-shadow: 0 5px 20px rgba(216, 27, 96, 0.4);
-        transition: transform 0.2s; margin-top: 20px;
-    }
-    .btn:hover { transform: scale(1.1); background: #c2185b; }
-    .btn-refresh {
-        background: #9fa8da; margin-top: 10px; padding: 10px 25px; font-size: 1rem;
+        box-shadow: 0 8px 25px rgba(216, 27, 96, 0.3);
+        transition: all 0.3s; margin-top: 30px;
     }
 
-    /* Modal */
+    #audio-control {
+        position: fixed; bottom: 20px; right: 20px;
+        background: white; width: 60px; height: 60px; border-radius: 50%;
+        display: flex; align-items: center; justify-content: center;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        cursor: pointer; z-index: 1000; font-size: 2rem;
+        border: 2px solid var(--soft-pink);
+    }
+
     .modal {
         display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-        background: rgba(0,0,0,0.6); z-index: 1000;
+        background: rgba(0,0,0,0.8); z-index: 2000;
         justify-content: center; align-items: center;
-        backdrop-filter: blur(5px);
+        backdrop-filter: blur(8px);
     }
     .ticket {
-        background: white; width: 90%; max-width: 400px; padding: 30px;
-        border-radius: 20px; text-align: center; border: 4px dashed #d81b60;
-        position: relative; animation: popUp 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        background: white; width: 90%; max-width: 450px; padding: 40px;
+        border-radius: 25px; text-align: center; border: 5px dashed var(--primary-pink);
+        position: relative; animation: popUp 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
-    @keyframes popUp { from { transform: scale(0.5); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
-    @media (max-width: 600px) { .gallery { column-count: 2; } }
+    @media (max-width: 600px) { 
+        .gallery { padding: 20px; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); } 
+        .timeline::before { left: 20px; }
+        .timeline-item { width: 100%; text-align: left !important; padding-left: 50px; }
+        .timeline-dot { left: 12.5px !important; }
+        .message-box { padding: 30px 20px; margin: 20px; }
+    }
 </style>
 </head>
 <body>
 
+<div id="yt-player" style="position: absolute; top: -9999px; left: -9999px;"></div>
+<div id="audio-control" onclick="toggleAudio()">⏳</div>
+
 <header>
     <h1>給最親愛的妳</h1>
-    <p class="subtitle">Happy Valentine's Day</p>
-    
-    <div class="love-timer" style="text-align:center; margin-top: 10px; margin-bottom:20px; background: rgba(255,255,255,0.8); padding: 15px; border-radius: 20px; display: inline-block;">
-        <p style="color:#888; margin:0; font-size:0.9rem;">我們已經結婚</p>
-        <div id="counter" style="font-size: 1.5rem; font-weight: bold; color: #d81b60; line-height:1.4; margin-top:5px;">...</div>
+    <p class="subtitle">2026 VALENTINE'S DAY</p>
+    <div style="text-align:center; margin-top: 20px; background: rgba(216, 27, 96, 0.05); padding: 20px; border-radius: 20px; display: inline-block; border: 1px solid var(--soft-pink);">
+        <p style="color:#888; margin:0; font-size:1rem;">老婆，我們已經攜手走過</p>
+        <div id="counter" style="font-size: 1.8rem; font-weight: bold; color: var(--primary-pink); line-height:1.4; margin-top:5px;">...</div>
     </div>
 </header>
 
-<div class="gallery" id="photoWall">
-    <!-- Photos inject here -->
+<div class="timeline">
+    <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-date">2021.08.05</div><div class="timeline-content">我們正式結為夫妻 💍</div></div>
+    <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-date">努力的足跡</div><div class="timeline-content">妳陪我考取老師，度過最難熬的時期 📚</div></div>
+    <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-date">最甜的擔當</div><div class="timeline-content">雙胞胎寶貝出生，我們有了最溫暖的家 👶👶</div></div>
 </div>
 
+<div class="gallery" id="photoWall"></div>
+
 <div class="message-box">
-    <p style="font-size: 1.1rem; line-height: 2;">
-        親愛的老婆：<br><br>
-        情人節快樂！<br>
-        謝謝妳總是在我身邊，<br>
-        支持我考老師、陪我度過低潮，<br>
-        還有辛苦地照顧我們的雙胞胎寶貝。<br>
-        雖然我平常比較木頭，但我真的很愛妳。<br>
-        這是一點小小心意...
-    </p>
-    <button class="btn" onclick="openGift()">🎁 領取禮物</button>
-    <br>
-    <button class="btn btn-refresh" onclick="location.reload()">🔄 換一批回憶</button>
+    <div id="typewriter"></div>
+    <div id="gift-area" style="display:none;"><button class="btn" onclick="openGift()">🎁 領取老公的小禮物</button></div>
 </div>
 
 <div id="giftModal" class="modal" onclick="closeGift()">
     <div class="ticket">
-        <h2 style="color:#d81b60;">🎟️ 願望兌換券 x 3</h2>
-        <p style="font-size:3rem; margin:20px 0;">🧞‍♂️</p>
-        <p>憑此券可兌換：<br><strong>按摩 / 放風 / 老公做家事</strong><br>(或其他妳想要的願望)</p>
-        <p style="color:#888; font-size:0.8rem; margin-top:20px;">使用期限：一萬年</p>
+        <h2 style="color:var(--primary-pink);">🎟️ 專屬願望兌換券 x 3</h2>
+        <p style="font-size:4rem; margin:20px 0;">🧞‍♂️</p>
+        <p>憑此券可無限次兌換：<br><br><strong>✨ 全身放鬆按摩 ✨<br>✨ 自由放風時光 ✨<br>✨ 老公全包家事 ✨</strong></p>
+        <p style="color:#d81b60; font-weight:bold; margin-top:30px;">「老婆妳辛苦了，我愛妳！」</p>
     </div>
 </div>
 
 <script>
-    // All Images List (Generated by Script)
-    const allPhotos = ["2pic2_LINE_ALBUM__260209_1.jpg","2pic2_LINE_ALBUM__260209_10.jpg","2pic2_LINE_ALBUM__260209_100.jpg","2pic2_LINE_ALBUM__260209_101.jpg","2pic2_LINE_ALBUM__260209_102.jpg","2pic2_LINE_ALBUM__260209_103.jpg","2pic2_LINE_ALBUM__260209_104.jpg","2pic2_LINE_ALBUM__260209_105.jpg","2pic2_LINE_ALBUM__260209_106.jpg","2pic2_LINE_ALBUM__260209_107.jpg","2pic2_LINE_ALBUM__260209_108.jpg","2pic2_LINE_ALBUM__260209_109.jpg","2pic2_LINE_ALBUM__260209_11.jpg","2pic2_LINE_ALBUM__260209_110.jpg","2pic2_LINE_ALBUM__260209_111.jpg","2pic2_LINE_ALBUM__260209_112.jpg","2pic2_LINE_ALBUM__260209_113.jpg","2pic2_LINE_ALBUM__260209_114.jpg","2pic2_LINE_ALBUM__260209_115.jpg","2pic2_LINE_ALBUM__260209_116.jpg","2pic2_LINE_ALBUM__260209_117.jpg","2pic2_LINE_ALBUM__260209_118.jpg","2pic2_LINE_ALBUM__260209_119.jpg","2pic2_LINE_ALBUM__260209_12.jpg","2pic2_LINE_ALBUM__260209_120.jpg","2pic2_LINE_ALBUM__260209_121.jpg","2pic2_LINE_ALBUM__260209_122.jpg","2pic2_LINE_ALBUM__260209_123.jpg","2pic2_LINE_ALBUM__260209_124.jpg","2pic2_LINE_ALBUM__260209_125.jpg","2pic2_LINE_ALBUM__260209_126.jpg","2pic2_LINE_ALBUM__260209_127.jpg","2pic2_LINE_ALBUM__260209_128.jpg","2pic2_LINE_ALBUM__260209_129.jpg","2pic2_LINE_ALBUM__260209_13.jpg","2pic2_LINE_ALBUM__260209_130.jpg","2pic2_LINE_ALBUM__260209_131.jpg","2pic2_LINE_ALBUM__260209_132.jpg","2pic2_LINE_ALBUM__260209_133.jpg","2pic2_LINE_ALBUM__260209_134.jpg","2pic2_LINE_ALBUM__260209_135.jpg","2pic2_LINE_ALBUM__260209_136.jpg","2pic2_LINE_ALBUM__260209_137.jpg","2pic2_LINE_ALBUM__260209_138.jpg","2pic2_LINE_ALBUM__260209_139.jpg","2pic2_LINE_ALBUM__260209_14.jpg","2pic2_LINE_ALBUM__260209_140.jpg","2pic2_LINE_ALBUM__260209_141.jpg","2pic2_LINE_ALBUM__260209_142.jpg","2pic2_LINE_ALBUM__260209_143.jpg","2pic2_LINE_ALBUM__260209_144.jpg","2pic2_LINE_ALBUM__260209_145.jpg","2pic2_LINE_ALBUM__260209_146.jpg","2pic2_LINE_ALBUM__260209_147.jpg","2pic2_LINE_ALBUM__260209_148.jpg","2pic2_LINE_ALBUM__260209_149.jpg","2pic2_LINE_ALBUM__260209_15.jpg","2pic2_LINE_ALBUM__260209_150.jpg","2pic2_LINE_ALBUM__260209_151.jpg","2pic2_LINE_ALBUM__260209_16.jpg","2pic2_LINE_ALBUM__260209_17.jpg","2pic2_LINE_ALBUM__260209_18.jpg","2pic2_LINE_ALBUM__260209_19.jpg","2pic2_LINE_ALBUM__260209_2.jpg","2pic2_LINE_ALBUM__260209_20.jpg","2pic2_LINE_ALBUM__260209_21.jpg","2pic2_LINE_ALBUM__260209_22.jpg","2pic2_LINE_ALBUM__260209_23.jpg","2pic2_LINE_ALBUM__260209_24.jpg","2pic2_LINE_ALBUM__260209_25.jpg","2pic2_LINE_ALBUM__260209_26.jpg","2pic2_LINE_ALBUM__260209_27.jpg","2pic2_LINE_ALBUM__260209_28.jpg","2pic2_LINE_ALBUM__260209_29.jpg","2pic2_LINE_ALBUM__260209_3.jpg","2pic2_LINE_ALBUM__260209_30.jpg","2pic2_LINE_ALBUM__260209_31.jpg","2pic2_LINE_ALBUM__260209_32.jpg","2pic2_LINE_ALBUM__260209_33.jpg","2pic2_LINE_ALBUM__260209_34.jpg","2pic2_LINE_ALBUM__260209_35.jpg","2pic2_LINE_ALBUM__260209_36.jpg","2pic2_LINE_ALBUM__260209_37.jpg","2pic2_LINE_ALBUM__260209_38.jpg","2pic2_LINE_ALBUM__260209_39.jpg","2pic2_LINE_ALBUM__260209_4.jpg","2pic2_LINE_ALBUM__260209_40.jpg","2pic2_LINE_ALBUM__260209_41.jpg","2pic2_LINE_ALBUM__260209_42.jpg","2pic2_LINE_ALBUM__260209_43.jpg","2pic2_LINE_ALBUM__260209_44.jpg","2pic2_LINE_ALBUM__260209_45.jpg","2pic2_LINE_ALBUM__260209_46.jpg","2pic2_LINE_ALBUM__260209_47.jpg","2pic2_LINE_ALBUM__260209_48.jpg","2pic2_LINE_ALBUM__260209_49.jpg","2pic2_LINE_ALBUM__260209_5.jpg","2pic2_LINE_ALBUM__260209_50.jpg","2pic2_LINE_ALBUM__260209_51.jpg","2pic2_LINE_ALBUM__260209_52.jpg","2pic2_LINE_ALBUM__260209_53.jpg","2pic2_LINE_ALBUM__260209_54.jpg","2pic2_LINE_ALBUM__260209_55.jpg","2pic2_LINE_ALBUM__260209_56.jpg","2pic2_LINE_ALBUM__260209_57.jpg","2pic2_LINE_ALBUM__260209_58.jpg","2pic2_LINE_ALBUM__260209_59.jpg","2pic2_LINE_ALBUM__260209_6.jpg","2pic2_LINE_ALBUM__260209_60.jpg","2pic2_LINE_ALBUM__260209_61.jpg","2pic2_LINE_ALBUM__260209_62.jpg","2pic2_LINE_ALBUM__260209_63.jpg","2pic2_LINE_ALBUM__260209_64.jpg","2pic2_LINE_ALBUM__260209_65.jpg","2pic2_LINE_ALBUM__260209_66.jpg","2pic2_LINE_ALBUM__260209_67.jpg","2pic2_LINE_ALBUM__260209_68.jpg","2pic2_LINE_ALBUM__260209_69.jpg","2pic2_LINE_ALBUM__260209_7.jpg","2pic2_LINE_ALBUM__260209_70.jpg","2pic2_LINE_ALBUM__260209_71.jpg","2pic2_LINE_ALBUM__260209_72.jpg","2pic2_LINE_ALBUM__260209_73.jpg","2pic2_LINE_ALBUM__260209_74.jpg","2pic2_LINE_ALBUM__260209_75.jpg","2pic2_LINE_ALBUM__260209_76.jpg","2pic2_LINE_ALBUM__260209_77.jpg","2pic2_LINE_ALBUM__260209_78.jpg","2pic2_LINE_ALBUM__260209_79.jpg","2pic2_LINE_ALBUM__260209_8.jpg","2pic2_LINE_ALBUM__260209_80.jpg","2pic2_LINE_ALBUM__260209_81.jpg","2pic2_LINE_ALBUM__260209_82.jpg","2pic2_LINE_ALBUM__260209_83.jpg","2pic2_LINE_ALBUM__260209_84.jpg","2pic2_LINE_ALBUM__260209_85.jpg","2pic2_LINE_ALBUM__260209_86.jpg","2pic2_LINE_ALBUM__260209_87.jpg","2pic2_LINE_ALBUM__260209_88.jpg","2pic2_LINE_ALBUM__260209_89.jpg","2pic2_LINE_ALBUM__260209_9.jpg","2pic2_LINE_ALBUM__260209_90.jpg","2pic2_LINE_ALBUM__260209_91.jpg","2pic2_LINE_ALBUM__260209_92.jpg","2pic2_LINE_ALBUM__260209_93.jpg","2pic2_LINE_ALBUM__260209_94.jpg","2pic2_LINE_ALBUM__260209_95.jpg","2pic2_LINE_ALBUM__260209_96.jpg","2pic2_LINE_ALBUM__260209_97.jpg","2pic2_LINE_ALBUM__260209_98.jpg","2pic2_LINE_ALBUM__260209_99.jpg","pic3_LINE_ALBUM__260209_1.jpg","pic3_LINE_ALBUM__260209_10.jpg","pic3_LINE_ALBUM__260209_100.jpg","pic3_LINE_ALBUM__260209_101.jpg","pic3_LINE_ALBUM__260209_102.jpg","pic3_LINE_ALBUM__260209_103.jpg","pic3_LINE_ALBUM__260209_104.jpg","pic3_LINE_ALBUM__260209_105.jpg","pic3_LINE_ALBUM__260209_106.jpg","pic3_LINE_ALBUM__260209_107.jpg","pic3_LINE_ALBUM__260209_108.jpg","pic3_LINE_ALBUM__260209_109.jpg","pic3_LINE_ALBUM__260209_11.jpg","pic3_LINE_ALBUM__260209_110.jpg","pic3_LINE_ALBUM__260209_111.jpg","pic3_LINE_ALBUM__260209_112.jpg","pic3_LINE_ALBUM__260209_113.jpg","pic3_LINE_ALBUM__260209_114.jpg","pic3_LINE_ALBUM__260209_115.jpg","pic3_LINE_ALBUM__260209_116.jpg","pic3_LINE_ALBUM__260209_117.jpg","pic3_LINE_ALBUM__260209_118.jpg","pic3_LINE_ALBUM__260209_119.jpg","pic3_LINE_ALBUM__260209_12.jpg","pic3_LINE_ALBUM__260209_120.jpg","pic3_LINE_ALBUM__260209_121.jpg","pic3_LINE_ALBUM__260209_122.jpg","pic3_LINE_ALBUM__260209_123.jpg","pic3_LINE_ALBUM__260209_124.jpg","pic3_LINE_ALBUM__260209_125.jpg","pic3_LINE_ALBUM__260209_126.jpg","pic3_LINE_ALBUM__260209_127.jpg","pic3_LINE_ALBUM__260209_128.jpg","pic3_LINE_ALBUM__260209_129.jpg","pic3_LINE_ALBUM__260209_13.jpg","pic3_LINE_ALBUM__260209_130.jpg","pic3_LINE_ALBUM__260209_131.jpg","pic3_LINE_ALBUM__260209_14.jpg","pic3_LINE_ALBUM__260209_15.jpg","pic3_LINE_ALBUM__260209_16.jpg","pic3_LINE_ALBUM__260209_17.jpg","pic3_LINE_ALBUM__260209_18.jpg","pic3_LINE_ALBUM__260209_19.jpg","pic3_LINE_ALBUM__260209_2.jpg","pic3_LINE_ALBUM__260209_20.jpg","pic3_LINE_ALBUM__260209_21.jpg","pic3_LINE_ALBUM__260209_22.jpg","pic3_LINE_ALBUM__260209_23.jpg","pic3_LINE_ALBUM__260209_24.jpg","pic3_LINE_ALBUM__260209_25.jpg","pic3_LINE_ALBUM__260209_26.jpg","pic3_LINE_ALBUM__260209_27.jpg","pic3_LINE_ALBUM__260209_28.jpg","pic3_LINE_ALBUM__260209_29.jpg","pic3_LINE_ALBUM__260209_3.jpg","pic3_LINE_ALBUM__260209_30.jpg","pic3_LINE_ALBUM__260209_31.jpg","pic3_LINE_ALBUM__260209_32.jpg","pic3_LINE_ALBUM__260209_33.jpg","pic3_LINE_ALBUM__260209_34.jpg","pic3_LINE_ALBUM__260209_35.jpg","pic3_LINE_ALBUM__260209_36.jpg","pic3_LINE_ALBUM__260209_37.jpg","pic3_LINE_ALBUM__260209_38.jpg","pic3_LINE_ALBUM__260209_39.jpg","pic3_LINE_ALBUM__260209_4.jpg","pic3_LINE_ALBUM__260209_40.jpg","pic3_LINE_ALBUM__260209_41.jpg","pic3_LINE_ALBUM__260209_42.jpg","pic3_LINE_ALBUM__260209_43.jpg","pic3_LINE_ALBUM__260209_44.jpg","pic3_LINE_ALBUM__260209_45.jpg","pic3_LINE_ALBUM__260209_46.jpg","pic3_LINE_ALBUM__260209_47.jpg","pic3_LINE_ALBUM__260209_48.jpg","pic3_LINE_ALBUM__260209_49.jpg","pic3_LINE_ALBUM__260209_5.jpg","pic3_LINE_ALBUM__260209_50.jpg","pic3_LINE_ALBUM__260209_51.jpg","pic3_LINE_ALBUM__260209_52.jpg","pic3_LINE_ALBUM__260209_53.jpg","pic3_LINE_ALBUM__260209_54.jpg","pic3_LINE_ALBUM__260209_55.jpg","pic3_LINE_ALBUM__260209_56.jpg","pic3_LINE_ALBUM__260209_57.jpg","pic3_LINE_ALBUM__260209_58.jpg","pic3_LINE_ALBUM__260209_59.jpg","pic3_LINE_ALBUM__260209_6.jpg","pic3_LINE_ALBUM__260209_60.jpg","pic3_LINE_ALBUM__260209_61.jpg","pic3_LINE_ALBUM__260209_62.jpg","pic3_LINE_ALBUM__260209_63.jpg","pic3_LINE_ALBUM__260209_64.jpg","pic3_LINE_ALBUM__260209_65.jpg","pic3_LINE_ALBUM__260209_66.jpg","pic3_LINE_ALBUM__260209_67.jpg","pic3_LINE_ALBUM__260209_68.jpg","pic3_LINE_ALBUM__260209_69.jpg","pic3_LINE_ALBUM__260209_7.jpg","pic3_LINE_ALBUM__260209_70.jpg","pic3_LINE_ALBUM__260209_71.jpg","pic3_LINE_ALBUM__260209_72.jpg","pic3_LINE_ALBUM__260209_73.jpg","pic3_LINE_ALBUM__260209_74.jpg","pic3_LINE_ALBUM__260209_75.jpg","pic3_LINE_ALBUM__260209_76.jpg","pic3_LINE_ALBUM__260209_77.jpg","pic3_LINE_ALBUM__260209_78.jpg","pic3_LINE_ALBUM__260209_79.jpg","pic3_LINE_ALBUM__260209_8.jpg","pic3_LINE_ALBUM__260209_80.jpg","pic3_LINE_ALBUM__260209_81.jpg","pic3_LINE_ALBUM__260209_82.jpg","pic3_LINE_ALBUM__260209_83.jpg","pic3_LINE_ALBUM__260209_84.jpg","pic3_LINE_ALBUM__260209_85.jpg","pic3_LINE_ALBUM__260209_86.jpg","pic3_LINE_ALBUM__260209_87.jpg","pic3_LINE_ALBUM__260209_88.jpg","pic3_LINE_ALBUM__260209_89.jpg","pic3_LINE_ALBUM__260209_9.jpg","pic3_LINE_ALBUM__260209_90.jpg","pic3_LINE_ALBUM__260209_91.jpg","pic3_LINE_ALBUM__260209_92.jpg","pic3_LINE_ALBUM__260209_93.jpg","pic3_LINE_ALBUM__260209_94.jpg","pic3_LINE_ALBUM__260209_95.jpg","pic3_LINE_ALBUM__260209_96.jpg","pic3_LINE_ALBUM__260209_97.jpg","pic3_LINE_ALBUM__260209_98.jpg","pic3_LINE_ALBUM__260209_99.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_1.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_10.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_100.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_101.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_102.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_103.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_104.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_105.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_106.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_107.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_108.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_109.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_11.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_110.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_111.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_112.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_113.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_114.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_115.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_116.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_117.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_118.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_119.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_12.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_120.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_121.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_122.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_123.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_124.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_125.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_126.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_127.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_128.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_129.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_13.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_130.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_131.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_132.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_133.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_134.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_135.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_136.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_137.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_138.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_139.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_14.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_140.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_141.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_142.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_143.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_144.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_145.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_146.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_147.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_148.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_149.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_15.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_150.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_151.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_152.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_153.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_154.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_155.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_156.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_157.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_158.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_159.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_16.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_160.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_161.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_162.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_163.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_164.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_165.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_166.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_167.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_168.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_169.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_17.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_170.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_171.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_172.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_173.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_174.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_175.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_176.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_177.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_178.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_179.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_18.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_180.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_181.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_182.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_183.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_184.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_185.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_186.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_187.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_188.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_189.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_19.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_190.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_191.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_192.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_193.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_194.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_195.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_196.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_197.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_198.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_199.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_2.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_20.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_200.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_201.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_202.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_21.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_22.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_23.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_24.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_25.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_26.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_27.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_28.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_29.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_3.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_30.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_31.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_32.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_33.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_34.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_35.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_36.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_37.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_38.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_39.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_4.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_40.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_41.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_42.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_43.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_44.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_45.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_46.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_47.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_48.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_49.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_5.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_50.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_51.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_52.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_53.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_54.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_55.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_56.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_57.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_58.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_59.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_6.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_60.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_61.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_62.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_63.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_64.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_65.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_66.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_67.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_68.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_69.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_7.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_70.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_71.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_72.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_73.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_74.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_75.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_76.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_77.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_78.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_79.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_8.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_80.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_81.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_82.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_83.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_84.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_85.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_86.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_87.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_88.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_89.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_9.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_90.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_91.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_92.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_93.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_94.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_95.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_96.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_97.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_98.jpg","pic_LINE_ALBUM_2025安安➕雙寶2026_260209_99.jpg","pic_LINE_ALBUM__260209_1.jpg","pic_LINE_ALBUM__260209_10.jpg","pic_LINE_ALBUM__260209_100.jpg","pic_LINE_ALBUM__260209_101.jpg","pic_LINE_ALBUM__260209_102.jpg","pic_LINE_ALBUM__260209_103.jpg","pic_LINE_ALBUM__260209_104.jpg","pic_LINE_ALBUM__260209_105.jpg","pic_LINE_ALBUM__260209_106.jpg","pic_LINE_ALBUM__260209_107.jpg","pic_LINE_ALBUM__260209_108.jpg","pic_LINE_ALBUM__260209_109.jpg","pic_LINE_ALBUM__260209_11.jpg","pic_LINE_ALBUM__260209_110.jpg","pic_LINE_ALBUM__260209_111.jpg","pic_LINE_ALBUM__260209_112.jpg","pic_LINE_ALBUM__260209_113.jpg","pic_LINE_ALBUM__260209_114.jpg","pic_LINE_ALBUM__260209_115.jpg","pic_LINE_ALBUM__260209_116.jpg","pic_LINE_ALBUM__260209_117.jpg","pic_LINE_ALBUM__260209_118.jpg","pic_LINE_ALBUM__260209_119.jpg","pic_LINE_ALBUM__260209_12.jpg","pic_LINE_ALBUM__260209_120.jpg","pic_LINE_ALBUM__260209_121.jpg","pic_LINE_ALBUM__260209_122.jpg","pic_LINE_ALBUM__260209_123.jpg","pic_LINE_ALBUM__260209_124.jpg","pic_LINE_ALBUM__260209_125.jpg","pic_LINE_ALBUM__260209_126.jpg","pic_LINE_ALBUM__260209_127.jpg","pic_LINE_ALBUM__260209_128.jpg","pic_LINE_ALBUM__260209_129.jpg","pic_LINE_ALBUM__260209_13.jpg","pic_LINE_ALBUM__260209_130.jpg","pic_LINE_ALBUM__260209_131.jpg","pic_LINE_ALBUM__260209_14.jpg","pic_LINE_ALBUM__260209_15.jpg","pic_LINE_ALBUM__260209_16.jpg","pic_LINE_ALBUM__260209_17.jpg","pic_LINE_ALBUM__260209_18.jpg","pic_LINE_ALBUM__260209_19.jpg","pic_LINE_ALBUM__260209_2.jpg","pic_LINE_ALBUM__260209_20.jpg","pic_LINE_ALBUM__260209_21.jpg","pic_LINE_ALBUM__260209_22.jpg","pic_LINE_ALBUM__260209_23.jpg","pic_LINE_ALBUM__260209_24.jpg","pic_LINE_ALBUM__260209_25.jpg","pic_LINE_ALBUM__260209_26.jpg","pic_LINE_ALBUM__260209_27.jpg","pic_LINE_ALBUM__260209_28.jpg","pic_LINE_ALBUM__260209_29.jpg","pic_LINE_ALBUM__260209_3.jpg","pic_LINE_ALBUM__260209_30.jpg","pic_LINE_ALBUM__260209_31.jpg","pic_LINE_ALBUM__260209_32.jpg","pic_LINE_ALBUM__260209_33.jpg","pic_LINE_ALBUM__260209_34.jpg","pic_LINE_ALBUM__260209_35.jpg","pic_LINE_ALBUM__260209_36.jpg","pic_LINE_ALBUM__260209_37.jpg","pic_LINE_ALBUM__260209_38.jpg","pic_LINE_ALBUM__260209_39.jpg","pic_LINE_ALBUM__260209_4.jpg","pic_LINE_ALBUM__260209_40.jpg","pic_LINE_ALBUM__260209_41.jpg","pic_LINE_ALBUM__260209_42.jpg","pic_LINE_ALBUM__260209_43.jpg","pic_LINE_ALBUM__260209_44.jpg","pic_LINE_ALBUM__260209_45.jpg","pic_LINE_ALBUM__260209_46.jpg","pic_LINE_ALBUM__260209_47.jpg","pic_LINE_ALBUM__260209_48.jpg","pic_LINE_ALBUM__260209_49.jpg","pic_LINE_ALBUM__260209_5.jpg","pic_LINE_ALBUM__260209_50.jpg","pic_LINE_ALBUM__260209_51.jpg","pic_LINE_ALBUM__260209_52.jpg","pic_LINE_ALBUM__260209_53.jpg","pic_LINE_ALBUM__260209_54.jpg","pic_LINE_ALBUM__260209_55.jpg","pic_LINE_ALBUM__260209_56.jpg","pic_LINE_ALBUM__260209_57.jpg","pic_LINE_ALBUM__260209_58.jpg","pic_LINE_ALBUM__260209_59.jpg","pic_LINE_ALBUM__260209_6.jpg","pic_LINE_ALBUM__260209_60.jpg","pic_LINE_ALBUM__260209_61.jpg","pic_LINE_ALBUM__260209_62.jpg","pic_LINE_ALBUM__260209_63.jpg","pic_LINE_ALBUM__260209_64.jpg","pic_LINE_ALBUM__260209_65.jpg","pic_LINE_ALBUM__260209_66.jpg","pic_LINE_ALBUM__260209_67.jpg","pic_LINE_ALBUM__260209_68.jpg","pic_LINE_ALBUM__260209_69.jpg","pic_LINE_ALBUM__260209_7.jpg","pic_LINE_ALBUM__260209_70.jpg","pic_LINE_ALBUM__260209_71.jpg","pic_LINE_ALBUM__260209_72.jpg","pic_LINE_ALBUM__260209_73.jpg","pic_LINE_ALBUM__260209_74.jpg","pic_LINE_ALBUM__260209_75.jpg","pic_LINE_ALBUM__260209_76.jpg","pic_LINE_ALBUM__260209_77.jpg","pic_LINE_ALBUM__260209_78.jpg","pic_LINE_ALBUM__260209_79.jpg","pic_LINE_ALBUM__260209_8.jpg","pic_LINE_ALBUM__260209_80.jpg","pic_LINE_ALBUM__260209_81.jpg","pic_LINE_ALBUM__260209_82.jpg","pic_LINE_ALBUM__260209_83.jpg","pic_LINE_ALBUM__260209_84.jpg","pic_LINE_ALBUM__260209_85.jpg","pic_LINE_ALBUM__260209_86.jpg","pic_LINE_ALBUM__260209_87.jpg","pic_LINE_ALBUM__260209_88.jpg","pic_LINE_ALBUM__260209_89.jpg","pic_LINE_ALBUM__260209_9.jpg","pic_LINE_ALBUM__260209_90.jpg","pic_LINE_ALBUM__260209_91.jpg","pic_LINE_ALBUM__260209_92.jpg","pic_LINE_ALBUM__260209_93.jpg","pic_LINE_ALBUM__260209_94.jpg","pic_LINE_ALBUM__260209_95.jpg","pic_LINE_ALBUM__260209_96.jpg","pic_LINE_ALBUM__260209_97.jpg","pic_LINE_ALBUM__260209_98.jpg","pic_LINE_ALBUM__260209_99.jpg"];
+    var tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-    function loadRandomPhotos() {
-        const wall = document.getElementById('photoWall');
-        wall.innerHTML = ''; // Clear
-        
-        // Shuffle and pick 30
-        const shuffled = [...allPhotos].sort(() => 0.5 - Math.random());
-        const selected = shuffled.slice(0, 30);
-        
-        selected.forEach((src, i) => {
-            const img = document.createElement('img');
-            img.src = img.src = src;
-            img.loading = 'lazy';
-            img.style.animationDelay = (i * 0.05) + 's'; // Staggered fade in
-            wall.appendChild(img);
+    var player;
+    function onYouTubeIframeAPIReady() {
+        player = new YT.Player('yt-player', {
+            height: '0', width: '0', videoId: 'MmMvMF3ZC4o',
+            playerVars: { 'autoplay': 0, 'loop': 1, 'playlist': 'MmMvMF3ZC4o' },
+            events: { 'onReady': () => { document.getElementById('audio-control').innerText = "🔇"; } }
         });
     }
 
-    // Love Counter
+    function toggleAudio() {
+        const btn = document.getElementById('audio-control');
+        if (player && player.getPlayerState() === 1) { player.pauseVideo(); btn.innerText = "🔇"; }
+        else if (player) { player.playVideo(); btn.innerText = "🔊"; }
+    }
+
+    const allPhotos = ["2pic2_LINE_ALBUM__260209_1.jpg","2pic2_LINE_ALBUM__260209_10.jpg","2pic2_LINE_ALBUM__260209_100.jpg","2pic2_LINE_ALBUM__260209_101.jpg","2pic2_LINE_ALBUM__260209_102.jpg","2pic2_LINE_ALBUM__260209_103.jpg","2pic2_LINE_ALBUM__260209_104.jpg","2pic2_LINE_ALBUM__260209_105.jpg","2pic2_LINE_ALBUM__260209_106.jpg","2pic2_LINE_ALBUM__260209_107.jpg","2pic2_LINE_ALBUM__260209_108.jpg","2pic2_LINE_ALBUM__260209_109.jpg","2pic2_LINE_ALBUM__260209_11.jpg","2pic2_LINE_ALBUM__260209_110.jpg","2pic2_LINE_ALBUM__260209_111.jpg","2pic2_LINE_ALBUM__260209_112.jpg","2pic2_LINE_ALBUM__260209_113.jpg","2pic2_LINE_ALBUM__260209_114.jpg","2pic2_LINE_ALBUM__260209_115.jpg","2pic2_LINE_ALBUM__260209_116.jpg","2pic2_LINE_ALBUM__260209_117.jpg","2pic2_LINE_ALBUM__260209_118.jpg","2pic2_LINE_ALBUM__260209_119.jpg","2pic2_LINE_ALBUM__260209_12.jpg","2pic2_LINE_ALBUM__260209_120.jpg","2pic2_LINE_ALBUM__260209_121.jpg","2pic2_LINE_ALBUM__260209_122.jpg","2pic2_LINE_ALBUM__260209_123.jpg","2pic2_LINE_ALBUM__260209_124.jpg","2pic2_LINE_ALBUM__260209_125.jpg","2pic2_LINE_ALBUM__260209_126.jpg","2pic2_LINE_ALBUM__260209_127.jpg","2pic2_LINE_ALBUM__260209_128.jpg","2pic2_LINE_ALBUM__260209_129.jpg","2pic2_LINE_ALBUM__260209_13.jpg","2pic2_LINE_ALBUM__260209_130.jpg","2pic2_LINE_ALBUM__260209_131.jpg","2pic2_LINE_ALBUM__260209_132.jpg","2pic2_LINE_ALBUM__260209_133.jpg","2pic2_LINE_ALBUM__260209_134.jpg","2pic2_LINE_ALBUM__260209_135.jpg","2pic2_LINE_ALBUM__260209_136.jpg","2pic2_LINE_ALBUM__260209_137.jpg","2pic2_LINE_ALBUM__260209_138.jpg","2pic2_LINE_ALBUM__260209_139.jpg","2pic2_LINE_ALBUM__260209_14.jpg","2pic2_LINE_ALBUM__260209_140.jpg","2pic2_LINE_ALBUM__260209_141.jpg","2pic2_LINE_ALBUM__260209_142.jpg","2pic2_LINE_ALBUM__260209_143.jpg","2pic2_LINE_ALBUM__260209_144.jpg","2pic2_LINE_ALBUM__260209_145.jpg","2pic2_LINE_ALBUM__260209_146.jpg","2pic2_LINE_ALBUM__260209_147.jpg","2pic2_LINE_ALBUM__260209_148.jpg","2pic2_LINE_ALBUM__260209_149.jpg","2pic2_LINE_ALBUM__260209_15.jpg","2pic2_LINE_ALBUM__260209_150.jpg","2pic2_LINE_ALBUM__260209_151.jpg","2pic2_LINE_ALBUM__260209_16.jpg","2pic2_LINE_ALBUM__260209_17.jpg","2pic2_LINE_ALBUM__260209_18.jpg","2pic2_LINE_ALBUM__260209_19.jpg","2pic2_LINE_ALBUM__260209_2.jpg","2pic2_LINE_ALBUM__260209_20.jpg","2pic2_LINE_ALBUM__260209_21.jpg","2pic2_LINE_ALBUM__260209_22.jpg","2pic2_LINE_ALBUM__260209_23.jpg","2pic2_LINE_ALBUM__260209_24.jpg","2pic2_LINE_ALBUM__260209_25.jpg","2pic2_LINE_ALBUM__260209_26.jpg","2pic2_LINE_ALBUM__260209_27.jpg","2pic2_LINE_ALBUM__260209_28.jpg","2pic2_LINE_ALBUM__260209_29.jpg","2pic2_LINE_ALBUM__260209_3.jpg","2pic2_LINE_ALBUM__260209_30.jpg","2pic2_LINE_ALBUM__260209_31.jpg","2pic2_LINE_ALBUM__260209_32.jpg","2pic2_LINE_ALBUM__260209_33.jpg","2pic2_LINE_ALBUM__260209_34.jpg","2pic2_LINE_ALBUM__260209_35.jpg","2pic2_LINE_ALBUM__260209_36.jpg","2pic2_LINE_ALBUM__260209_37.jpg","2pic2_LINE_ALBUM__260209_38.jpg","2pic2_LINE_ALBUM__260209_39.jpg","2pic2_LINE_ALBUM__260209_4.jpg","2pic2_LINE_ALBUM__260209_40.jpg","2pic2_LINE_ALBUM__260209_41.jpg","2pic2_LINE_ALBUM__260209_42.jpg","2pic2_LINE_ALBUM__260209_43.jpg","2pic2_LINE_ALBUM__260209_44.jpg","2pic2_LINE_ALBUM__260209_45.jpg","2pic2_LINE_ALBUM__260209_46.jpg","2pic2_LINE_ALBUM__260209_47.jpg","2pic2_LINE_ALBUM__260209_48.jpg","2pic2_LINE_ALBUM__260209_49.jpg","2pic2_LINE_ALBUM__260209_5.jpg","2pic2_LINE_ALBUM__260209_50.jpg","2pic2_LINE_ALBUM__260209_51.jpg","2pic2_LINE_ALBUM__260209_52.jpg","2pic2_LINE_ALBUM__260209_53.jpg","2pic2_LINE_ALBUM__260209_54.jpg","2pic2_LINE_ALBUM__260209_55.jpg","2pic2_LINE_ALBUM__260209_56.jpg","2pic2_LINE_ALBUM__260209_57.jpg","2pic2_LINE_ALBUM__260209_58.jpg","2pic2_LINE_ALBUM__260209_59.jpg","2pic2_LINE_ALBUM__260209_6.jpg","2pic2_LINE_ALBUM__260209_60.jpg","2pic2_LINE_ALBUM__260209_61.jpg","2pic2_LINE_ALBUM__260209_62.jpg","2pic2_LINE_ALBUM__260209_63.jpg","2pic2_LINE_ALBUM__260209_64.jpg","2pic2_LINE_ALBUM__260209_65.jpg","2pic2_LINE_ALBUM__260209_66.jpg","2pic2_LINE_ALBUM__260209_67.jpg","2pic2_LINE_ALBUM__260209_68.jpg","2pic2_LINE_ALBUM__260209_69.jpg","2pic2_LINE_ALBUM__260209_7.jpg","2pic2_LINE_ALBUM__260209_70.jpg","2pic2_LINE_ALBUM__260209_71.jpg","2pic2_LINE_ALBUM__260209_72.jpg","2pic2_LINE_ALBUM__260209_73.jpg","2pic2_LINE_ALBUM__260209_74.jpg","2pic2_LINE_ALBUM__260209_75.jpg","2pic2_LINE_ALBUM__260209_76.jpg","2pic2_LINE_ALBUM__260209_77.jpg","2pic2_LINE_ALBUM__260209_78.jpg","2pic2_LINE_ALBUM__260209_79.jpg","2pic2_LINE_ALBUM__260209_8.jpg","2pic2_LINE_ALBUM__260209_80.jpg","2pic2_LINE_ALBUM__260209_81.jpg","2pic2_LINE_ALBUM__260209_82.jpg","2pic2_LINE_ALBUM__260209_83.jpg","2pic2_LINE_ALBUM__260209_84.jpg","2pic2_LINE_ALBUM__260209_85.jpg","2pic2_LINE_ALBUM__260209_86.jpg","2pic2_LINE_ALBUM__260209_87.jpg","2pic2_LINE_ALBUM__260209_88.jpg","2pic2_LINE_ALBUM__260209_89.jpg","2pic2_LINE_ALBUM__260209_9.jpg","2pic2_LINE_ALBUM__260209_90.jpg","2pic2_LINE_ALBUM__260209_91.jpg","2pic2_LINE_ALBUM__260209_92.jpg","2pic2_LINE_ALBUM__260209_93.jpg","2pic2_LINE_ALBUM__260209_94.jpg","2pic2_LINE_ALBUM__260209_95.jpg","2pic2_LINE_ALBUM__260209_96.jpg","2pic2_LINE_ALBUM__260209_97.jpg","2pic2_LINE_ALBUM__260209_98.jpg","2pic2_LINE_ALBUM__260209_99.jpg"];
+
+    function loadRandomPhotos() {
+        const wall = document.getElementById('photoWall');
+        wall.innerHTML = '';
+        const shuffled = [...allPhotos].sort(() => 0.5 - Math.random());
+        shuffled.slice(0, 20).forEach(src => {
+            const container = document.createElement('div');
+            container.className = 'polaroid';
+            const rotate = (Math.random() * 14 - 7).toFixed(2);
+            container.style.transform = `rotate(${rotate}deg)`;
+            container.innerHTML = `<img src="${src}" loading="lazy">`;
+            wall.appendChild(container);
+        });
+    }
+
+    const message = "親愛的老婆：\n\n情人節快樂！❤️\n\n謝謝妳總是在我身邊，默默地支持我考取老師、陪我走過那段壓力巨大的低潮期。妳不只是一個完美的妻子，更是我們雙胞胎寶貝最強大的依靠。\n\n我知道我平時比較木頭，不太會說甜言蜜語，但我內心真的很感激這輩子能遇到妳。這份網頁是我一點小小的驚喜，希望能讓妳感受到我的愛。\n\n老婆，辛苦了！我會努力給妳和孩子們更好的未來。";
+    let index = 0;
+    function typeWriter() {
+        if (index < message.length) {
+            document.getElementById("typewriter").innerHTML += message.charAt(index);
+            index++;
+            setTimeout(typeWriter, 120);
+        } else {
+            document.getElementById("gift-area").style.display = "block";
+        }
+    }
+
+    function loadRandomPhotos() {
+        const wall = document.getElementById('photoWall');
+        wall.innerHTML = '';
+        const shuffled = [...allPhotos].sort(() => 0.5 - Math.random());
+        shuffled.slice(0, 24).forEach(src => {
+            const container = document.createElement('div');
+            container.className = 'polaroid';
+            const rotate = (Math.random() * 10 - 5).toFixed(2);
+            container.style.transform = `rotate(${rotate}deg)`;
+            container.innerHTML = `<img src="${src}" loading="lazy">`;
+            wall.appendChild(container);
+        });
+    }
+
     const startDate = new Date('2021-08-05T00:00:00');
     function updateCounter() {
         const now = new Date();
         const diff = now - startDate;
         const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-        
         let y = now.getFullYear() - startDate.getFullYear();
         let m = now.getMonth() - startDate.getMonth();
         let d = now.getDate() - startDate.getDate();
         if (d < 0) { m--; d += new Date(now.getFullYear(), now.getMonth(), 0).getDate(); }
         if (m < 0) { y--; m += 12; }
-        
-        document.getElementById('counter').innerHTML = 
-            `${y} 年 ${m} 個月 ${d} 天<br><span style="font-size:0.8rem; color:#888;">(總共 ${days} 天)</span>`;
+        document.getElementById('counter').innerHTML = `${y} 年 ${m} 個月 ${d} 天<br><small>(共 ${days} 天的幸福時光)</small>`;
     }
     setInterval(updateCounter, 1000);
-    updateCounter();
 
-    // Falling Hearts
     function createHeart() {
         const heart = document.createElement('div');
-        heart.classList.add('heart');
-        heart.innerHTML = '❤️';
+        heart.className = 'heart'; heart.innerHTML = '❤️';
         heart.style.left = Math.random() * 100 + 'vw';
-        heart.style.animationDuration = Math.random() * 3 + 2 + 's';
+        heart.style.animationDuration = Math.random() * 3 + 3 + 's';
         document.body.appendChild(heart);
-        setTimeout(() => heart.remove(), 5000);
+        setTimeout(() => heart.remove(), 6000);
     }
-    setInterval(createHeart, 300);
+    setInterval(createHeart, 500);
 
-    // Modal
     function openGift() { document.getElementById('giftModal').style.display = 'flex'; }
     function closeGift() { document.getElementById('giftModal').style.display = 'none'; }
 
-    // Init
-    loadRandomPhotos();
+    window.onload = () => { loadRandomPhotos(); updateCounter(); setTimeout(typeWriter, 1500); };
 </script>
-
 </body>
 </html>
