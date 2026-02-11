@@ -140,7 +140,7 @@
         
         selected.forEach((src, i) => {
             const img = document.createElement('img');
-            img.src = 'images/' + src;
+            img.src = img.src = src;
             img.loading = 'lazy';
             img.style.animationDelay = (i * 0.05) + 's'; // Staggered fade in
             wall.appendChild(img);
